@@ -1,0 +1,13 @@
+{
+    "name": "ardavan/ardavan-plugin",
+    "description": "ArdavanPlugin",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./include"
+        }
+    }
+}

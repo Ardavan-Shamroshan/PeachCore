@@ -1,0 +1,60 @@
+@import url('https://v1.fontapi.ir/css/Vazir');
+
+div.wrap {
+    font-family: Vazir, sans-serif;
+}
+
+.nav-tabs {
+    float: left;
+    width: 100%;
+    margin: 1rem 0 0;
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs > li {
+    float: right;
+    margin-bottom: -1px;
+}
+
+.nav-tabs > li > a {
+    /*margin-right: 2px;*/
+    line-height: 1.5;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    float: right;
+    text-decoration: none;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: #eee #eee #eee;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.tab-content .tab-pane {
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    float: right;
+    width: 99%;
+    display: none;
+}
+
+.tab-content > .tab-pane.active {
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px -2px rgba(0, 0, 0, 0.15);
+}
+
+
