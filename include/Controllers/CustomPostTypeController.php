@@ -1,10 +1,9 @@
 <?php
 
-namespace Inc\Base;
+namespace Inc\Controllers;
 
 use Inc\Api\Callbacks\AdminCallbacks;
 use Inc\Api\Settings;
-
 
 class CustomPostTypeController extends BaseController {
 	public Settings $settings;
@@ -13,11 +12,7 @@ class CustomPostTypeController extends BaseController {
 	public array $subpages = [];
 
 	public function register() {
-		$option = get_option( 'peach_core_plugin' );
-		// if there was an option with the option_name ($option), then if there was an option with option_name value check the checkbox
-		$activated = $option && $option['cpt_manager'];
-
-		if ( ! $activated ) {
+		if ( ! $this->activated( 'cpt_manager' ) ) {
 			return;
 		}
 
@@ -56,15 +51,5 @@ class CustomPostTypeController extends BaseController {
 			'public'      => true,
 			'has_archive' => true,
 		] );
-	}
-
-	public function check_activation() {
-		$option = get_option( 'peach_core_plugin' );
-		// if there was an option with the option_name ($option), then if there was an option with option_name value check the checkbox
-		$activated = $option && $option['cpt_manager'];
-
-		if ( ! $activated ) {
-			return;
-		}
 	}
 }

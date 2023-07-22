@@ -2,24 +2,8 @@
 
 namespace Inc;
 
+
 final class Init {
-	/**
-	 * Store all the classes in an array
-	 * @return string[]
-	 */
-	public static function get_services(): array {
-		return [
-
-			Base\Enqueue::class,
-			Base\SettingsLink::class,
-			Pages\Dashboard::class,
-
-			Base\CustomPostTypeController::class,
-
-
-		];
-	}
-
 	/**
 	 * Loop through the classes, initialize them, and call the register method if exists
 	 * @return void
@@ -31,6 +15,27 @@ final class Init {
 				$service->register();
 			}
 		}
+	}
+
+	/**
+	 * Store all the classes in an array
+	 * @return string[]
+	 */
+	public static function get_services(): array {
+		return [
+			Pages\Dashboard::class,
+			Base\Enqueue::class,
+			Base\SettingsLink::class,
+			Controllers\CustomPostTypeController::class,
+			Controllers\CustomTaxonomyController::class,
+			Controllers\WidgetController::class,
+			Controllers\GalleryController::class,
+			Controllers\TestimonialController::class,
+			Controllers\TemplateController::class,
+			Controllers\AuthController::class,
+			Controllers\MembershipController::class,
+			Controllers\ChatController::class,
+		];
 	}
 
 	/**

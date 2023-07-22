@@ -2,7 +2,7 @@
 
 namespace Inc\Api\Callbacks;
 
-use Inc\Base\BaseController;
+use Inc\Controllers\BaseController;
 
 class AdminCallbacks extends BaseController {
 	/**

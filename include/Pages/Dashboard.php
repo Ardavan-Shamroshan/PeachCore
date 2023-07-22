@@ -5,7 +5,7 @@ namespace Inc\Pages;
 use Inc\Api\Callbacks\AdminCallbacks;
 use Inc\Api\Callbacks\ManagerCallbacks;
 use Inc\Api\Settings;
-use Inc\Base\BaseController;
+use Inc\Controllers\BaseController;
 
 class Dashboard extends BaseController {
 	public Settings $settings;

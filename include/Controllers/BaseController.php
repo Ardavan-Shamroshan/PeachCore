@@ -1,6 +1,6 @@
 <?php
 
-namespace Inc\Base;
+namespace Inc\Controllers;
 
 class BaseController {
 	public string $plugin_path;
@@ -25,5 +25,11 @@ class BaseController {
 			'membership_manager'  => __( 'مدیریت اشتراک' ),
 			'chat_manager'        => __( 'مدیریت گفتوگو' ),
 		];
+	}
+
+	public function activated( string $option_name ) {
+		$option = get_option( 'peach_core_plugin' );
+		// if there was an option with the option_name ($option), then if there was an option with option_name value check the checkbox
+		return $option && $option[ $option_name ];
 	}
 }
