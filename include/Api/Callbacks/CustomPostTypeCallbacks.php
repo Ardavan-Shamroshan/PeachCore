@@ -17,7 +17,7 @@ class CustomPostTypeCallbacks {
 		$option_name = $args['option_name'];
 		$input       = get_option( $option_name );
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
-		$value = $input && $input[ $name ];
+		$value = ( $input && $input[ $name ] ) ? $input[ $name ] : '';
 
 		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='$value' placeholder='$placeholder'>";
 	}
