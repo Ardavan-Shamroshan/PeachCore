@@ -24,17 +24,18 @@ class CustomPostTypeController extends BaseController {
 		$this->callbacks     = new AdminCallbacks();
 		$this->cpt_callbacks = new CustomPostTypeCallbacks();
 
+		// create input fields
+		$this->set_settings();
+		$this->set_sections();
+		$this->set_fields();
+
 		// menu, submenu pages
 		$this->set_subpages();
 		$this->settings
 			->add_subpages( $this->subpages )
 			->register();
 
-
-		$this->set_settings();
-		$this->set_sections();
-		$this->set_fields();
-
+		// store POST
 		$this->store_custom_post_type();
 
 		if ( ! empty( $this->custom_post_types ) ) {
@@ -89,17 +90,18 @@ class CustomPostTypeController extends BaseController {
 
 	// set custom fields input fields
 	public function set_fields() {
+
 		// post type id, singular name, plural name, public, has_archive
 		$fields = [ 'post_type' => [ 'نوع پست', 'text_field' ], 'name' => [ 'نام', 'text_field' ], 'singular_name' => [ 'نام مفرد', 'text_field' ], 'public' => [ 'عمومی', 'checkbox_field' ], 'has_archive' => [ 'دارای آرشیو', 'checkbox_field' ] ];
 		$args   = [];
 		foreach ( $fields as $key => $value ) {
 			$args[] = [
-				'id'       => $key[0],
-				'title'    => $value[1],
-				'callback' => [ $this->cpt_callbacks, 'text_field' ],
+				'id'       => $key,
+				'title'    => $value[0],
+				'callback' => [ $this->cpt_callbacks, $value[1] ],
 				'page'     => 'peach-core-custom-post-type-submenu',
 				'section'  => 'peach_cpt_index',
-				'args'     => [ 'option_name' => 'peach_core_plugin_cpt', 'label_for' => $key[0], 'class' => $value == 'checkbox_field' ? 'ui-toggle' : '' ]
+				'args'     => [ 'option_name' => 'peach_core_plugin_cpt', 'label_for' => $key, 'class' => $value[1] == 'checkbox_field' ? 'ui-toggle' : '', 'placeholder' => $value[0] ]
 			];
 		}
 

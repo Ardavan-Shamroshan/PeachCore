@@ -13,7 +13,7 @@ class AdminCallbacks extends BaseController {
 	}
 
 	public function custom_post_type() {
-		return require_once $this->plugin_path . 'templates/post-type.php';
+		return require_once $this->plugin_path . 'templates/custom-post-type.php';
 	}
 
 	public function custom_taxonomy_type() {

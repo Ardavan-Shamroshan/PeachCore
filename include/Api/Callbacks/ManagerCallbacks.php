@@ -33,6 +33,6 @@ class ManagerCallbacks extends BaseController {
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
 		$checked = $checkbox ? ( $checkbox[ $name ] ? 'checked' : '' ) : '';
 
-		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]'" . " value='1' class='$class' $checked><label for='$name'></label>";
+		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class' $checked><label for='$name'></label>";
 	}
 }
