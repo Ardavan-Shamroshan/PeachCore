@@ -20,7 +20,7 @@ class ManagerCallbacks extends BaseController {
 	}
 
 	public function admin_section_manager() {
-		echo 'تنظیمات افزونه را از طریق این صفحه مدیریت کنید';
+		echo 'تنظیمات هسته هلو را از طریق این صفحه مدیریت کنید';
 	}
 
 	public function checkbox_field( $args ) {

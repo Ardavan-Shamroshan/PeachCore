@@ -1,6 +1,6 @@
-# Alecad Plugin
+# PeachCore Plugin
 
-Full list of sections and features we will build during series of tutorials
+Full list of sections and features of PeachCore
 
 * Modular Administration Area
 * Custom post type manager

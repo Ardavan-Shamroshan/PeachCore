@@ -3,7 +3,7 @@
 /**
  * Trigger this file on plugin uninstall
  *
- * @package ArdavanPlugin
+ * @package PeachCore
  */
 
 // Die if accessed externally

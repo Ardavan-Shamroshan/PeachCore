@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>اردوان</h1>
+    <h1>هسته هلو</h1>
 	<?php settings_errors(); ?>
 
     <ul class="nav nav-tabs">
@@ -12,8 +12,8 @@
         <div id="tab-1" class="tab-pane active">
             <form action="options.php" method="POST">
 				<?php
-				settings_fields( 'ardavan_plugin_settings' );
-				do_settings_sections( 'ardavan_plugin' );
+				settings_fields( 'peach_core_plugin_settings' );
+				do_settings_sections( 'peach_core_plugin' );
 				submit_button();
 				?>
             </form>

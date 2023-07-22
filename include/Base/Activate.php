@@ -10,10 +10,10 @@ class Activate {
 	public static function activate() {
 		flush_rewrite_rules();
 
-		if ( get_option( 'ardavan_plugin' ) ) {
+		if ( get_option( 'peach_core_plugin' ) ) {
 			return;
 		}
 
-		update_option( 'ardavan_plugin', [] );
+		update_option( 'peach_core_plugin', [] );
 	}
 }

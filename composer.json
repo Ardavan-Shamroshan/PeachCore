@@ -1,6 +1,6 @@
 {
-    "name": "ardavan/ardavan-plugin",
-    "description": "ArdavanPlugin",
+    "name": "ardavan/peach-core-plugin",
+    "description": "Peach Core Plugin",
     "type": "wordpress-plugin",
     "license": "GPL",
     "minimum-stability": "dev",

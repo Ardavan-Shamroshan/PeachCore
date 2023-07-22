@@ -30,7 +30,7 @@ class Dashboard extends BaseController {
 
 		$this->settings
 			->add_pages( $this->pages )
-			->with_subpage( 'پیشخوان افزونه' )
+			->with_subpage( 'پیشخوان هلو' )
 			->add_subpages( $this->subpages )
 			->register();
 	}
@@ -43,10 +43,10 @@ class Dashboard extends BaseController {
 	public function set_pages() {
 		$this->pages = [
 			[
-				'page_title' => 'پلاگین اردوان',
-				'menu_title' => 'پلاگین اردوان',
+				'page_title' => 'هسته هلو',
+				'menu_title' => 'هسته هلو',
 				'capability' => 'manage_options',
-				'menu_slug'  => 'ardavan-plugin',
+				'menu_slug'  => 'peach-core',
 				'callback'   => [ $this->callbacks, 'admin_dashboard' ],
 				'icon_url'   => 'dashicons-store',
 				'position'   => 25
@@ -58,27 +58,27 @@ class Dashboard extends BaseController {
 	public function set_subpages() {
 		$this->subpages = [
 			[
-				'parent_slug' => 'ardavan-plugin',
+				'parent_slug' => 'peach-core',
 				'page_title'  => 'پست اختصاصی',
 				'menu_title'  => 'پست اختصاصی',
 				'capability'  => 'manage_options',
-				'menu_slug'   => 'ardavan-plugin-custom-post-type-submenu',
+				'menu_slug'   => 'peach-core-custom-post-type-submenu',
 				'callback'    => [ $this->callbacks, 'custom_post_type' ]
 			],
 			[
-				'parent_slug' => 'ardavan-plugin',
+				'parent_slug' => 'peach-core',
 				'page_title'  => 'طبقه بندی اختصاصی',
 				'menu_title'  => 'طبقه بندی اختصاصی',
 				'capability'  => 'manage_options',
-				'menu_slug'   => 'ardavan-plugin-custom-taxonomy-submenu',
+				'menu_slug'   => 'peach-core-custom-taxonomy-submenu',
 				'callback'    => [ $this->callbacks, 'custom_taxonomy_type' ]
 			],
 			[
-				'parent_slug' => 'ardavan-plugin',
+				'parent_slug' => 'peach-core',
 				'page_title'  => 'ابزارک اختصاصی',
 				'menu_title'  => 'ابزارک اختصاصی',
 				'capability'  => 'manage_options',
-				'menu_slug'   => 'ardavan-plugin-custom-widget-submenu',
+				'menu_slug'   => 'peach-core-custom-widget-submenu',
 				'callback'    => [ $this->callbacks, 'custom_widget_type' ]
 			],
 		];
@@ -91,8 +91,8 @@ class Dashboard extends BaseController {
 	// set custom fields settings
 	public function set_settings() {
 		$args[] = [
-			'option_group' => 'ardavan_plugin_settings',
-			'option_name'  => 'ardavan_plugin',
+			'option_group' => 'peach_core_plugin_settings',
+			'option_name'  => 'peach_core_plugin',
 			'callback'     => [ $this->callbacks_manager, 'checkbox_sanitize' ],
 		];
 
@@ -103,10 +103,10 @@ class Dashboard extends BaseController {
 	public function set_sections() {
 		$args = [
 			[
-				'id'       => 'ardavan_admin_index',
+				'id'       => 'peach_admin_index',
 				'title'    => 'تنظیمات افزونه',
 				'callback' => [ $this->callbacks_manager, 'admin_section_manager' ],
-				'page'     => 'ardavan_plugin'
+				'page'     => 'peach_core_plugin'
 			]
 		];
 
@@ -121,9 +121,9 @@ class Dashboard extends BaseController {
 				'id'       => $key,
 				'title'    => $value,
 				'callback' => [ $this->callbacks_manager, 'checkbox_field' ],
-				'page'     => 'ardavan_plugin',
-				'section'  => 'ardavan_admin_index',
-				'args'     => [ 'option_name' => 'ardavan_plugin', 'label_for' => $key, 'class' => 'ui-toggle' ]
+				'page'     => 'peach_core_plugin',
+				'section'  => 'peach_admin_index',
+				'args'     => [ 'option_name' => 'peach_core_plugin', 'label_for' => $key, 'class' => 'ui-toggle' ]
 			];
 		}
 
