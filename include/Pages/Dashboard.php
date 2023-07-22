@@ -12,7 +12,7 @@ class Dashboard extends BaseController {
 	public AdminCallbacks $callbacks;
 	public ManagerCallbacks $callbacks_manager;
 	public array $pages;
-	public array $subpages;
+//	public array $subpages;
 
 	public function register() {
 		$this->settings          = new Settings();
@@ -21,7 +21,7 @@ class Dashboard extends BaseController {
 
 		// menu, submenu pages
 		$this->set_pages();
-		$this->set_subpages();
+//		$this->set_subpages();
 
 		// custom fields
 		$this->set_settings();
@@ -31,7 +31,7 @@ class Dashboard extends BaseController {
 		$this->settings
 			->add_pages( $this->pages )
 			->with_subpage( 'پیشخوان هلو' )
-			->add_subpages( $this->subpages )
+//			->add_subpages( $this->subpages )
 			->register();
 	}
 
@@ -55,34 +55,34 @@ class Dashboard extends BaseController {
 	}
 
 	// initialize (array) subpages
-	public function set_subpages() {
-		$this->subpages = [
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'پست اختصاصی',
-				'menu_title'  => 'پست اختصاصی',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-custom-post-type-submenu',
-				'callback'    => [ $this->callbacks, 'custom_post_type' ]
-			],
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'طبقه بندی اختصاصی',
-				'menu_title'  => 'طبقه بندی اختصاصی',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-custom-taxonomy-submenu',
-				'callback'    => [ $this->callbacks, 'custom_taxonomy_type' ]
-			],
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'ابزارک اختصاصی',
-				'menu_title'  => 'ابزارک اختصاصی',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-custom-widget-submenu',
-				'callback'    => [ $this->callbacks, 'custom_widget_type' ]
-			],
-		];
-	}
+//	public function set_subpages() {
+//		$this->subpages = [
+//			[
+//				'parent_slug' => 'peach-core',
+//				'page_title'  => 'پست اختصاصی',
+//				'menu_title'  => 'پست اختصاصی',
+//				'capability'  => 'manage_options',
+//				'menu_slug'   => 'peach-core-custom-post-type-submenu',
+//				'callback'    => [ $this->callbacks, 'custom_post_type' ]
+//			],
+//			[
+//				'parent_slug' => 'peach-core',
+//				'page_title'  => 'طبقه بندی اختصاصی',
+//				'menu_title'  => 'طبقه بندی اختصاصی',
+//				'capability'  => 'manage_options',
+//				'menu_slug'   => 'peach-core-custom-taxonomy-submenu',
+//				'callback'    => [ $this->callbacks, 'custom_taxonomy_type' ]
+//			],
+//			[
+//				'parent_slug' => 'peach-core',
+//				'page_title'  => 'ابزارک اختصاصی',
+//				'menu_title'  => 'ابزارک اختصاصی',
+//				'capability'  => 'manage_options',
+//				'menu_slug'   => 'peach-core-custom-widget-submenu',
+//				'callback'    => [ $this->callbacks, 'custom_widget_type' ]
+//			],
+//		];
+//	}
 
 	/**
 	 * Register custom fields

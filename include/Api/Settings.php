@@ -11,7 +11,7 @@ class Settings {
 
 	public function register() {
 		// admin menu
-		if ( ! empty( $this->admin_pages ) ) {
+		if ( ! empty( $this->admin_pages ) || ! empty( $this->admin_subpages ) ) {
 			add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
 		}
 
