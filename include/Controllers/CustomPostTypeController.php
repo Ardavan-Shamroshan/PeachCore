@@ -11,6 +11,8 @@ class CustomPostTypeController extends BaseController {
 
 	public array $subpages = [];
 
+	public array $custom_post_types = [];
+
 	public function register() {
 		if ( ! $this->activated( 'cpt_manager' ) ) {
 			return;
@@ -25,9 +27,16 @@ class CustomPostTypeController extends BaseController {
 			->add_subpages( $this->subpages )
 			->register();
 
-		add_action( 'init', [ $this, 'activate' ] );
+		$this->storeCustomPostTypes();
+
+		if ( ! empty( $this->custom_post_types ) ) {
+			add_action( 'init', [ $this, 'register_custom_post_type' ] );
+		}
 	}
 
+	/**
+	 * Define submenu page
+	 */
 	public function set_subpages() {
 		$this->subpages = [
 			[
@@ -41,15 +50,30 @@ class CustomPostTypeController extends BaseController {
 		];
 	}
 
-	// initialize (array) subpages
-	public function activate() {
-		register_post_type( 'peach_products', [
-			'labels'      => [
-				'name'          => 'محصولات هلو',
-				'singular_name' => 'محصول هلو',
+	public function storeCustomPostTypes() {
+		$this->custom_post_types = [
+			[
+				'post_type'     => 'peach_products',
+				'name'          => 'محصولات',
+				'singular_name' => 'محصول',
+				'public'        => true,
+				'has_archive'   => true,
 			],
-			'public'      => true,
-			'has_archive' => true,
-		] );
+		];
+	}
+
+	// initialize (array) subpages
+	public function register_custom_post_type() {
+		foreach ( $this->custom_post_types as $post_type ) {
+			register_post_type( $post_type['post_type'], [
+				'labels'      => [
+					'name'          => $post_type['name'],
+					'singular_name' => $post_type['singular_name'],
+				],
+				'public'      => $post_type['public'],
+				'has_archive' => $post_type['has_archive'],
+			] );
+		}
+
 	}
 }
