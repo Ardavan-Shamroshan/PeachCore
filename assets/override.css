@@ -1,11 +1,50 @@
-@import url('https://v1.fontapi.ir/css/Vazir');
+/* Generated for Edge v115.0.1901.183 on Windows */
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/ad3cd4cbda94aee8578c1b622b9002f9dfe345c05870eb375a02da853d08f072.woff2") format("woff2");
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/046a76746039189feb148c360dfb82d07a1e3464d31a2078363587af6f5a1cfb.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/d783603a0dd07db6896ecd8a3460e2256a48dca62373a0478706a05490c1a2d8.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/fc6648da06acebfe96ad5a8f077f569c5c4dd75b77122951723ddfbfeb191728.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/3b2277e82a583c9f91de41aa9e198a14d7ef7f4ccd04828abdd623acd116a88b.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Vazir";
+    src: url("https://cdn.fontcdn.ir/Fonts/Vazir/71671477a4b62305fbd3ed4976a31c3c08520cf914656ece6b79543524a49132.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+}
+/* CACHED: 2023-07-16T04:00:08+04:30 */
+/* Powered by FontServer.ir */
+
 
 div.wrap {
     font-family: Vazir, sans-serif;
 }
 
 .nav-tabs {
-    float: left;
+    float: right;
     width: 100%;
     margin: 1rem 0 0;
     list-style: none;
@@ -57,4 +96,25 @@ div.wrap {
     box-shadow: 0 1px 4px -2px rgba(0, 0, 0, 0.15);
 }
 
+.cpt-table {
+    width: 100%;
+    border-spacing: 5px;
+    text-align: right;
+}
+
+.cpt-table,
+.cpt-table th,
+.cpt-table td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.cpt-table th {
+    background-color: #f5f5f5;
+}
+
+.text-center {
+    text-align: center;
+}
 
