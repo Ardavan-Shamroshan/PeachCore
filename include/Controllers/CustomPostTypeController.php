@@ -27,7 +27,7 @@ class CustomPostTypeController extends BaseController {
 			->add_subpages( $this->subpages )
 			->register();
 
-		$this->storeCustomPostTypes();
+		$this->store_custom_post_type();
 
 		if ( ! empty( $this->custom_post_types ) ) {
 			add_action( 'init', [ $this, 'register_custom_post_type' ] );
@@ -50,7 +50,7 @@ class CustomPostTypeController extends BaseController {
 		];
 	}
 
-	public function storeCustomPostTypes() {
+	public function store_custom_post_type() {
 		$this->custom_post_types[] = [
 			'post_type'             => 'peach_product',
 			'name'                  => '',
@@ -99,7 +99,7 @@ class CustomPostTypeController extends BaseController {
 		];
 	}
 
-	public function registerCustomPostTypes() {
+	public function register_custom_post_type() {
 		foreach ( $this->custom_post_types as $post_type ) {
 			register_post_type( $post_type['post_type'],
 				[
