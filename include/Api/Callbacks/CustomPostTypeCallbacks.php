@@ -8,7 +8,25 @@ class CustomPostTypeCallbacks {
 	}
 
 	public function cpt_sanitize( $input ) {
-		return $input;
+		$output = get_option( 'peach_core_plugin_cpt' );
+
+		if ( empty( $output ) ) {
+			$output = [];
+
+			$output[ $input['post_type'] ] = $input;
+
+			return $output;
+		}
+
+		foreach ( $output as $key => $value ) {
+			if ( $input['post_type'] === $key ) {
+				$output[ $key ] = $input;
+			} else {
+				$output[ $input['post_type'] ] = $input;
+			}
+		}
+
+		return $output;
 	}
 
 	public function text_field( $args ) {
@@ -17,9 +35,8 @@ class CustomPostTypeCallbacks {
 		$option_name = $args['option_name'];
 		$input       = get_option( $option_name );
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
-		$value = ( $input && $input[ $name ] ) ? $input[ $name ] : '';
 
-		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='$value' placeholder='$placeholder'>";
+		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='' placeholder='$placeholder'>";
 	}
 
 	public function checkbox_field( $args ) {
@@ -30,8 +47,7 @@ class CustomPostTypeCallbacks {
 		$option_name = $args['option_name'];
 		$checkbox    = get_option( $option_name );
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
-		$checked = $checkbox ? ( $checkbox[ $name ] ? 'checked' : '' ) : '';
 
-		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class' $checked><label for='$name'></label>";
+		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class'><label for='$name'></label>";
 	}
 }
