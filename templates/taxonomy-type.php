@@ -1,15 +1,15 @@
 <div class="wrap">
-    <h1>طبقه بندی اختصاصی</h1>
+    <h1>دسته بندی اختصاصی</h1>
 
     <ul class="nav nav-tabs">
-        <li class="<?= ! isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>"><a href="#tab-1">لیست طبقه بندی های اختصاصی</a></li>
-        <li class="<?= isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>"><a href="#tab-2"><?= isset( $_POST['edit_taxonomy'] ) ? 'ویرایش طبقه بندی اختصاصی' : 'ایجاد طبقه بندی اختصاصی' ?></a></li>
+        <li class="<?= ! isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>"><a href="#tab-1">لیست دسته بندی های اختصاصی</a></li>
+        <li class="<?= isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>"><a href="#tab-2"><?= isset( $_POST['edit_taxonomy'] ) ? 'ویرایش دسته بندی اختصاصی' : 'ایجاد دسته بندی اختصاصی' ?></a></li>
         <li><a href="#tab-3">استخراج</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="tab-1" class="tab-pane <?= ! isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>">
-            <h3>لیست طبقه بندی ها</h3>
+            <h3>لیست دسته بندی ها</h3>
 			<?php $options = get_option( 'peach_core_plugin_taxonomy' ) ?: []; ?>
 
             <table class="cpt-table">

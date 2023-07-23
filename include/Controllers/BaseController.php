@@ -16,7 +16,7 @@ class BaseController {
 		// settings manager for dynamically create custom checkbox fields
 		$this->setting_managers = [
 			'cpt_manager'         => __( 'مدیریت نوع پست های اختصاصی' ),
-			'taxonomy_manager'    => __( 'مدیریت طبقه بندی' ),
+			'taxonomy_manager'    => __( 'مدیریت دسته بندی' ),
 			'media_widget'        => __( 'رسانه ابزارک ها' ),
 			'gallery_manager'     => __( 'مدیریت تصاویر' ),
 			'testimonial_manager' => __( 'مدیریت گواهی نامه' ),

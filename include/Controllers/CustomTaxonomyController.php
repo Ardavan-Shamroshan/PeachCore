@@ -33,14 +33,20 @@ class CustomTaxonomyController extends BaseController {
 		$this->settings
 			->add_subpages( $this->subpages )
 			->register();
+
+		$this->store_custom_taxonomies();
+
+		if ( ! empty( $this->taxonomies ) ) {
+			add_action( 'init', [ $this, 'register_custom_taxonomy' ] );
+		}
 	}
 
 	public function set_subpages() {
 		$this->subpages = [
 			[
 				'parent_slug' => 'peach-core',
-				'page_title'  => 'طبقه بندی اختصاصی',
-				'menu_title'  => 'طبقه بندی اختصاصی',
+				'page_title'  => 'دسته بندی اختصاصی',
+				'menu_title'  => 'دسته بندی اختصاصی',
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'peach-core-custom-taxonomy-submenu',
 				'callback'    => [ $this->callbacks, 'custom_taxonomy_type' ]
@@ -64,7 +70,7 @@ class CustomTaxonomyController extends BaseController {
 		$args = [
 			[
 				'id'       => 'peach_taxonomy_index',
-				'title'    => 'طبقه بندی اختصاصی',
+				'title'    => 'دسته بندی اختصاصی',
 				'callback' => [ $this->taxonomy_callbacks, 'taxonomy_section_manager' ],
 				'page'     => 'peach-core-custom-taxonomy-submenu',
 			]
@@ -81,7 +87,7 @@ class CustomTaxonomyController extends BaseController {
 		$args = [
 			[
 				'id'       => 'taxonomy',
-				'title'    => 'شناسه طبقه بندی اختصاصی',
+				'title'    => 'شناسه دسته بندی اختصاصی',
 				'callback' => [ $this->taxonomy_callbacks, 'text_field' ],
 				'page'     => 'peach-core-custom-taxonomy-submenu', // based on menu/submenu slug
 				'section'  => 'peach_taxonomy_index', // based on section id
@@ -121,5 +127,41 @@ class CustomTaxonomyController extends BaseController {
 		];
 
 		$this->settings->set_fields( $args );
+	}
+
+	public function store_custom_taxonomies() {
+		$options = get_option( 'peach_core_plugin_taxonomy' ) ?: [];
+
+		foreach ( $options as $option ) {
+			$labels = [
+				'name'              => $option['singular_name'],
+				'singular_name'     => $option['singular_name'],
+				'search_items'      => 'Search ' . $option['singular_name'],
+				'all_items'         => 'All ' . $option['singular_name'],
+				'parent_item'       => 'Parent ' . $option['singular_name'],
+				'parent_item_colon' => 'Parent ' . $option['singular_name'] . ':',
+				'edit_item'         => 'Edit ' . $option['singular_name'],
+				'update_item'       => 'Update ' . $option['singular_name'],
+				'add_new_item'      => 'Add New ' . $option['singular_name'],
+				'new_item_name'     => 'New ' . $option['singular_name'] . ' Name',
+				'menu_name'         => $option['singular_name'],
+			];
+
+			$this->taxonomies[] = [
+				'hierarchical'      => isset( $option['hierarchical'] ),
+				'labels'            => $labels,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => [ 'slug' => $option['taxonomy'] ],
+			];
+		}
+
+	}
+
+	public function register_custom_taxonomy() {
+		foreach ( $this->taxonomies as $taxonomy ) {
+			register_taxonomy( $taxonomy['rewrite']['slug'], [ 'post' ], $taxonomy );
+		}
 	}
 }

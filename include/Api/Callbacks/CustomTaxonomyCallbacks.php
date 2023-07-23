@@ -4,7 +4,7 @@ namespace Inc\Api\Callbacks;
 
 class CustomTaxonomyCallbacks {
 	public function taxonomy_section_manager() {
-		echo "طبقه بندی های اختصاصی خود را از این صفحه مدیریت کنید";
+		echo "دسته بندی های اختصاصی خود را از این صفحه مدیریت کنید";
 	}
 
 	public function taxonomy_sanitize( $input ) {
