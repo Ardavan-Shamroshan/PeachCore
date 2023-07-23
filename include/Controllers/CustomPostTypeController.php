@@ -77,7 +77,6 @@ class CustomPostTypeController extends BaseController {
 	}
 
 	// set custom fields sections
-
 	public function set_fields() {
 
 		// post type id, singular name, plural name, public, has_archive

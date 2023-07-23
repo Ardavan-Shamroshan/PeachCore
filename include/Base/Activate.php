@@ -18,5 +18,9 @@ class Activate {
 		if ( ! get_option( 'peach_core_plugin_cpt' ) ) {
 			update_option( 'peach_core_plugin_cpt', [] );
 		}
+
+		if ( ! get_option( 'peach_core_plugin_taxonomy' ) ) {
+			update_option( 'peach_core_plugin_taxonomy', [] );
+		}
 	}
 }
