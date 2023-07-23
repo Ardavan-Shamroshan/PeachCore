@@ -13,7 +13,12 @@ class Enqueue extends BaseController {
 	 * Enqueue scripts
 	 */
 	public function enqueue() {
+		wp_enqueue_style( 'peachCoreCodePrettifyStyle', $this->plugin_url . 'assets/prettify.css', [], null );
+		wp_enqueue_script( 'peachCoreCodePrettifyScript', $this->plugin_url . 'assets/prettify.js', [], null );
+
 		wp_enqueue_style( 'peachCoreStyle', $this->plugin_url . 'assets/override.css', [], null );
 		wp_enqueue_script( 'peachCoreScript', $this->plugin_url . 'assets/override.js', [], null );
+
+
 	}
 }

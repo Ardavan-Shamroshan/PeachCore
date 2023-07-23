@@ -1,5 +1,7 @@
 window.addEventListener('load', function () {
 
+    PR.prettyPrint();
+
 
     // store tabs variables
     let tabs = document.querySelectorAll('ul.nav-tabs > li');
