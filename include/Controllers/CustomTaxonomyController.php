@@ -123,7 +123,8 @@ class CustomTaxonomyController extends BaseController {
 					'class'       => 'ui-toggle',
 					'array'       => 'taxonomy'
 				]
-			],[
+			],
+			[
 				'id'       => 'objects',
 				'title'    => 'نوع پست های اختصاصی',
 				'callback' => [ $this->taxonomy_callbacks, 'checkbox_post_type_field' ],
@@ -131,7 +132,7 @@ class CustomTaxonomyController extends BaseController {
 				'section'  => 'peach_taxonomy_index', // based on section id
 				'args'     => [
 					'option_name' => 'peach_core_plugin_taxonomy', // based on setting option_name
-					'label_for'   => 'hierarchical',
+					'label_for'   => 'objects',
 					'class'       => 'ui-toggle',
 					'array'       => 'taxonomy'
 				]
@@ -166,14 +167,17 @@ class CustomTaxonomyController extends BaseController {
 				'show_admin_column' => true,
 				'query_var'         => true,
 				'rewrite'           => [ 'slug' => $option['taxonomy'] ],
+				'objects'           => $option['objects'] ?? null
 			];
 		}
-
 	}
 
 	public function register_custom_taxonomy() {
 		foreach ( $this->taxonomies as $taxonomy ) {
-			register_taxonomy( $taxonomy['rewrite']['slug'], [ 'post' ], $taxonomy );
+			// register taxonomy args: name of taxonomy, [post types], taxonomy args
+			$objects = isset( $taxonomy['objects'] ) ? array_keys( $taxonomy['objects'] ) : null;
+
+			register_taxonomy( $taxonomy['rewrite']['slug'], $objects, $taxonomy );
 		}
 	}
 }
