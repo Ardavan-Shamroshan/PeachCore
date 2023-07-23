@@ -1,15 +1,14 @@
 <div class="wrap">
     <h1>نوع پست اختصاصی</h1>
-	<?php settings_errors(); ?>
 
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab-1">لیست انواع پست های اختصاصی</a></li>
-        <li><a href="#tab-2">ایجاد نوع پست اختصاصی</a></li>
+        <li class="<?= ! isset( $_POST['edit_post'] ) ? 'active' : '' ?>"><a href="#tab-1">لیست انواع پست های اختصاصی</a></li>
+        <li class="<?= isset( $_POST['edit_post'] ) ? 'active' : '' ?>"><a href="#tab-2"><?= isset( $_POST['edit_post'] ) ? 'ویرایش نوع پست اختصاصی' : 'ایجاد نوع پست اختصاصی' ?></a></li>
         <li><a href="#tab-3">استخراج</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="tab-1" class="tab-pane active">
+        <div id="tab-1" class="tab-pane <?= !isset( $_POST['edit_post'] ) ? 'active' : '' ?>">
             <h3>لیست پست ها</h3>
 			<?php $options = get_option( 'peach_core_plugin_cpt' ) ?: []; ?>
 
@@ -38,12 +37,16 @@
                                 <input type="hidden" name="remove" value="<?= $option['post_type'] ?>">
 								<?php
 								settings_fields( 'peach_core_plugin_cpt_settings' );
-								submit_button( 'پاک کردن', 'delete small', 'submit', false, ['onclick'=> 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");'] );
+								submit_button( 'پاک کردن', 'delete small', 'submit', false, [ 'onclick' => 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");' ] );
 								?>
                             </form>
-                            -
-                            <a href="#">ویرایش</a>
-
+                            <form action="" method="post" class=" inline-block">
+                                <input type="hidden" name="edit_post" value="<?= $option['post_type'] ?>">
+								<?php
+								settings_fields( 'peach_core_plugin_cpt_settings' );
+								submit_button( 'ویرایش', 'primary small', 'submit', false );
+								?>
+                            </form>
                         </td>
                     </tr>
 				<?php endforeach; ?>
@@ -52,7 +55,7 @@
 
         </div>
 
-        <div id="tab-2" class="tab-pane">
+        <div id="tab-2" class="tab-pane <?= isset( $_POST['edit_post'] ) ? 'active' : '' ?>">
 
             <form action="options.php" method="POST">
 				<?php

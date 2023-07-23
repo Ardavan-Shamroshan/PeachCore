@@ -40,10 +40,14 @@ class CustomPostTypeCallbacks {
 		$name        = $args['label_for'];
 		$placeholder = $args['placeholder'];
 		$option_name = $args['option_name'];
-		$input       = get_option( $option_name );
-		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
+		// if there was an option with the option_name, then if there was an option with option_name value fill the input
+		$value = '';
+		if ( isset( $_POST['edit_post'] ) ) {
+			$input = get_option( $option_name );
+			$value = $input[ $_POST['edit_post'] ][ $name ];
+		}
 
-		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='' placeholder='$placeholder' required>";
+		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='$value' placeholder='$placeholder' required>";
 	}
 
 	public function checkbox_field( $args ) {
@@ -52,9 +56,16 @@ class CustomPostTypeCallbacks {
 
 		// initialize input's name like 'option_name[cpt_manager]'
 		$option_name = $args['option_name'];
-		$checkbox    = get_option( $option_name );
+
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
 
-		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class'><label for='$name'></label>";
+		$checked = false;
+		if ( isset( $_POST['edit_post'] ) ) {
+			$checkbox = get_option( $option_name );
+			$checked  = isset( $checkbox[ $_POST['edit_post'] ][ $name ] );
+		}
+		$checked =  $checked ? 'checked' : '';
+
+		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class' $checked><label for='$name'></label>";
 	}
 }
