@@ -10,46 +10,41 @@
     <div class="tab-content">
         <div id="tab-1" class="tab-pane <?= ! isset( $_POST['edit_taxonomy'] ) ? 'active' : '' ?>">
             <h3>لیست طبقه بندی ها</h3>
-<!--			--><?php //$options = get_option( 'peach_core_plugin_cpt' ) ?: []; ?>
+			<?php $options = get_option( 'peach_core_plugin_taxonomy' ) ?: []; ?>
 
             <table class="cpt-table">
                 <tr>
                     <th>شناسه</th>
-                    <th>نام</th>
                     <th>نام مفرد</th>
-                    <th>عمومی</th>
-                    <th>دارای آرشیو</th>
+                    <th>سلسله مراتب</th>
                     <th class="text-center">عملیات</th>
                 </tr>
                 <tbody>
-<!--				--><?php //foreach ( $options as $option ):
-//					$public = isset( $option['public'] ) ? 'فعال' : 'غیرفعال';
-//					$has_archive = isset( $option['has_archive'] ) ? 'فعال' : 'غیرفعال';
-//					?>
-<!--                    <tr>-->
-<!--                        <td>--><?php //= $option['post_type'] ?><!--</td>-->
-<!--                        <td>--><?php //= $option['name'] ?><!--</td>-->
-<!--                        <td>--><?php //= $option['singular_name'] ?><!--</td>-->
-<!--                        <td>--><?php //= $public ?><!--</td>-->
-<!--                        <td>--><?php //= $has_archive ?><!--</td>-->
-<!--                        <td class="text-center">-->
-<!--                            <form action="options.php" method="post" class=" inline-block">-->
-<!--                                <input type="hidden" name="remove" value="--><?php //= $option['post_type'] ?><!--">-->
-<!--								--><?php
-//								settings_fields( 'peach_core_plugin_cpt_settings' );
-//								submit_button( 'پاک کردن', 'delete small', 'submit', false, [ 'onclick' => 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");' ] );
-//								?>
-<!--                            </form>-->
-<!--                            <form action="" method="post" class=" inline-block">-->
-<!--                                <input type="hidden" name="edit_post" value="--><?php //= $option['post_type'] ?><!--">-->
-<!--								--><?php
-//								settings_fields( 'peach_core_plugin_cpt_settings' );
-//								submit_button( 'ویرایش', 'primary small', 'submit', false );
-//								?>
-<!--                            </form>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--				--><?php //endforeach; ?>
+				<?php foreach ( $options as $option ):
+					$hierarchical = isset( $option['hierarchical'] ) ? 'فعال' : 'غیرفعال';
+					?>
+                    <tr>
+                        <td><?= $option['taxonomy'] ?></td>
+                        <td><?= $option['singular_name'] ?></td>
+                        <td><?= $hierarchical ?></td>
+                        <td class="text-center">
+                            <form action="options.php" method="post" class=" inline-block">
+                                <input type="hidden" name="remove" value="<?= $option['taxonomy'] ?>">
+								<?php
+								settings_fields( 'peach_core_plugin_taxonomy_settings' );
+								submit_button( 'پاک کردن', 'delete small', 'submit', false, [ 'onclick' => 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");' ] );
+								?>
+                            </form>
+                            <form action="" method="post" class=" inline-block">
+                                <input type="hidden" name="edit_taxonomy" value="<?= $option['taxonomy'] ?>">
+								<?php
+								settings_fields( 'peach_core_plugin_taxonomy_settings' );
+								submit_button( 'ویرایش', 'primary small', 'submit', false );
+								?>
+                            </form>
+                        </td>
+                    </tr>
+				<?php endforeach; ?>
                 </tbody>
             </table>
 
