@@ -123,6 +123,18 @@ class CustomTaxonomyController extends BaseController {
 					'class'       => 'ui-toggle',
 					'array'       => 'taxonomy'
 				]
+			],[
+				'id'       => 'objects',
+				'title'    => 'نوع پست های اختصاصی',
+				'callback' => [ $this->taxonomy_callbacks, 'checkbox_post_type_field' ],
+				'page'     => 'peach-core-custom-taxonomy-submenu', // based on menu/submenu slug
+				'section'  => 'peach_taxonomy_index', // based on section id
+				'args'     => [
+					'option_name' => 'peach_core_plugin_taxonomy', // based on setting option_name
+					'label_for'   => 'hierarchical',
+					'class'       => 'ui-toggle',
+					'array'       => 'taxonomy'
+				]
 			],
 		];
 

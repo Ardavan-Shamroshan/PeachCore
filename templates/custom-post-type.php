@@ -1,6 +1,8 @@
 <div class="wrap">
     <h1>نوع پست اختصاصی</h1>
 
+	<?php settings_errors() ;?>
+
     <ul class="nav nav-tabs">
         <li class="<?= ! isset( $_POST['edit_post'] ) ? 'active' : '' ?>"><a href="#tab-1">لیست انواع پست های اختصاصی</a></li>
         <li class="<?= isset( $_POST['edit_post'] ) ? 'active' : '' ?>"><a href="#tab-2"><?= isset( $_POST['edit_post'] ) ? 'ویرایش نوع پست اختصاصی' : 'ایجاد نوع پست اختصاصی' ?></a></li>
@@ -33,18 +35,18 @@
                         <td><?= $public ?></td>
                         <td><?= $has_archive ?></td>
                         <td class="text-center">
+                            <form action="" method="post" class=" inline-block">
+                                <input type="hidden" name="edit_post" value="<?= $option['post_type'] ?>">
+		                        <?php
+		                        settings_fields( 'peach_core_plugin_cpt_settings' );
+		                        submit_button( 'ویرایش', 'primary small', 'submit', false );
+		                        ?>
+                            </form>
                             <form action="options.php" method="post" class=" inline-block">
                                 <input type="hidden" name="remove" value="<?= $option['post_type'] ?>">
 								<?php
 								settings_fields( 'peach_core_plugin_cpt_settings' );
 								submit_button( 'پاک کردن', 'delete small', 'submit', false, [ 'onclick' => 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");' ] );
-								?>
-                            </form>
-                            <form action="" method="post" class=" inline-block">
-                                <input type="hidden" name="edit_post" value="<?= $option['post_type'] ?>">
-								<?php
-								settings_fields( 'peach_core_plugin_cpt_settings' );
-								submit_button( 'ویرایش', 'primary small', 'submit', false );
 								?>
                             </form>
                         </td>

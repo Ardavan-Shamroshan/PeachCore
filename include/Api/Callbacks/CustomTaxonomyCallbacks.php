@@ -64,8 +64,40 @@ class CustomTaxonomyCallbacks {
 			$checkbox = get_option( $option_name );
 			$checked  = isset( $checkbox[ $_POST['edit_taxonomy'] ][ $name ] );
 		}
-		$checked =  $checked ? 'checked' : '';
+		$checked = $checked ? 'checked' : '';
 
 		echo "<input type='checkbox' id='$name' name='$option_name" . "[$name]' value='1' class='$class' $checked><label for='$name'></label>";
+	}
+
+	public function checkbox_post_type_field( $args ) {
+		$name  = $args['label_for'];
+		$class = $args['class'];
+
+		// initialize input's name like 'option_name[cpt_manager]'
+		$option_name = $args['option_name'];
+
+		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
+
+		$checked = false;
+		if ( isset( $_POST['edit_taxonomy'] ) ) {
+			$checkbox = get_option( $option_name );
+		}
+
+
+		// get all post types as objects
+		$post_types = get_post_types( [ 'show_ui' => true ], 'object' );
+
+		$output = '';
+		foreach ( $post_types as $key => $type ) {
+
+			if ( isset( $_POST['edit_taxonomy'] ) ) {
+				$checked = isset( $checkbox[ $_POST['edit_taxonomy'] ][ $name ][$key] );
+			}
+			$checked = $checked ? 'checked' : '';
+
+
+			$output .= "<div class='mb-10'><input type='checkbox' id='$key' name='$option_name" . "[$name][$key]' value='1' class='$class' $checked><label for='$name'>$key ($type->label)</label></div> <br>";
+		}
+		echo $output;
 	}
 }
