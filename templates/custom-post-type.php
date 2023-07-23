@@ -11,7 +11,7 @@
     <div class="tab-content">
         <div id="tab-1" class="tab-pane active">
             <h3>لیست پست ها</h3>
-			<?php $options = get_option( 'peach_core_plugin_cpt' ); ?>
+			<?php $options = get_option( 'peach_core_plugin_cpt' ) ?: []; ?>
 
             <table class="cpt-table">
                 <tr>
@@ -23,13 +23,16 @@
                     <th class="text-center">عملیات</th>
                 </tr>
                 <tbody>
-				<?php foreach ( $options as $option ): ?>
+				<?php foreach ( $options as $option ):
+					$public = isset( $option['public'] ) ? 'فعال' : 'غیرفعال';
+					$has_archive = isset( $option['has_archive'] ) ? 'فعال' : 'غیرفعال';
+					?>
                     <tr>
                         <td><?= $option['post_type'] ?></td>
                         <td><?= $option['name'] ?></td>
                         <td><?= $option['singular_name'] ?></td>
-                        <td><?= $option['public'] ?></td>
-                        <td><?= $option['has_archive'] ?></td>
+                        <td><?= $public ?></td>
+                        <td><?= $has_archive ?></td>
                         <td class="text-center"><a href="#">ویرایش</a> - <a href="#">حذف</a></td>
                     </tr>
 				<?php endforeach; ?>

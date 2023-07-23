@@ -8,15 +8,14 @@ class CustomPostTypeCallbacks {
 	}
 
 	public function cpt_sanitize( $input ) {
-		$output = get_option( 'peach_core_plugin_cpt' );
+		$output = get_option( 'peach_core_plugin_cpt' ) ?: [];
 
 		if ( empty( $output ) ) {
-			$output = [];
-
 			$output[ $input['post_type'] ] = $input;
 
 			return $output;
 		}
+
 
 		foreach ( $output as $key => $value ) {
 			if ( $input['post_type'] === $key ) {
@@ -36,7 +35,7 @@ class CustomPostTypeCallbacks {
 		$input       = get_option( $option_name );
 		// if there was an option with the option_name ($checkbox), then if there was an option with option_name value check the checkbox
 
-		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='' placeholder='$placeholder'>";
+		echo "<input type='text' class='regular-text' id='$name'  name='$option_name" . "[$name]' value='' placeholder='$placeholder' required>";
 	}
 
 	public function checkbox_field( $args ) {

@@ -121,19 +121,20 @@ class Settings {
 
 	// register settings, sections, fields
 	public function register_custom_fields() {
+
 		// register setting
 		foreach ( $this->settings as $setting ) {
-			register_setting( $setting['option_group'], $setting['option_name'], ( $setting['callback'] ?? '' ) );
+			register_setting( $setting["option_group"], $setting["option_name"], ( $setting["callback"] ?? '' ) );
 		}
 
 		// add settings section
 		foreach ( $this->sections as $section ) {
-			add_settings_section( $section['id'], $section['title'], $section['callback'] ?? '', $section['page'] );
+			add_settings_section( $section["id"], $section["title"], ( $section["callback"] ?? '' ), $section["page"] );
 		}
 
 		// add settings field
 		foreach ( $this->fields as $field ) {
-			add_settings_field( $field['id'], $field['title'], $field['callback'] ?? '', $field['page'], $field['section'], $field['args'] ?? '' );
+			add_settings_field( $field["id"], $field["title"], ( $field["callback"] ?? '' ), $field["page"], $field["section"], ( $field["args"] ?? '' ) );
 		}
 	}
 }

@@ -24,13 +24,15 @@ class CustomPostTypeController extends BaseController {
 		$this->callbacks     = new AdminCallbacks();
 		$this->cpt_callbacks = new CustomPostTypeCallbacks();
 
+		// menu, submenu pages
+		$this->set_subpages();
+
 		// create input fields
 		$this->set_settings();
 		$this->set_sections();
 		$this->set_fields();
 
-		// menu, submenu pages
-		$this->set_subpages();
+
 		$this->settings
 			->add_subpages( $this->subpages )
 			->register();
@@ -42,6 +44,115 @@ class CustomPostTypeController extends BaseController {
 			add_action( 'init', [ $this, 'register_custom_post_type' ] );
 		}
 	}
+
+
+	public function set_settings() {
+		$args = [
+			[
+				'option_group' => 'peach_core_plugin_cpt_settings',
+				'option_name'  => 'peach_core_plugin_cpt',
+				'callback'     => [ $this->cpt_callbacks, 'cpt_sanitize' ]
+			]
+		];
+
+		$this->settings->set_settings( $args );
+	}
+
+	/**
+	 * Register custom fields
+	 */
+
+	// set custom fields settings
+	public function set_sections() {
+		$args = [
+			[
+				'id'       => 'peach_cpt_index',
+				'title'    => 'نوع پست اختصاصی',
+				'callback' => [ $this->cpt_callbacks, 'cpt_section_manager' ],
+				'page'     => 'peach-core-custom-post-type-submenu' // based on menu/submenu slug
+			]
+		];
+
+		$this->settings->set_sections( $args );
+	}
+
+	// set custom fields sections
+
+	public function set_fields() {
+
+		// post type id, singular name, plural name, public, has_archive
+		$args = [
+			[
+				'id'       => 'post_type',
+				'title'    => 'شناسه نوع پست اختصاصی',
+				'callback' => [ $this->cpt_callbacks, 'text_field' ],
+				'page'     => 'peach-core-custom-post-type-submenu', // based on menu/submenu slug
+				'section'  => 'peach_cpt_index', // based on section id
+				'args'     => [
+					'option_name' => 'peach_core_plugin_cpt', // based on setting option_name
+					'label_for'   => 'post_type',
+					'placeholder' => 'مثال: product',
+					'array'       => 'post_type'
+				]
+			],
+			[
+				'id'       => 'name',
+				'title'    => 'نام جمع',
+				'callback' => [ $this->cpt_callbacks, 'text_field' ],
+				'page'     => 'peach-core-custom-post-type-submenu',
+				'section'  => 'peach_cpt_index',
+				'args'     => [
+					'option_name' => 'peach_core_plugin_cpt',
+					'label_for'   => 'name',
+					'placeholder' => 'مثال: محصولات',
+					'array'       => 'post_type'
+				]
+			],
+			[
+				'id'       => 'singular_name',
+				'title'    => 'نام مفرد',
+				'callback' => [ $this->cpt_callbacks, 'text_field' ],
+				'page'     => 'peach-core-custom-post-type-submenu',
+				'section'  => 'peach_cpt_index',
+				'args'     => [
+					'option_name' => 'peach_core_plugin_cpt',
+					'label_for'   => 'singular_name',
+					'placeholder' => 'مثال: محصول',
+					'array'       => 'post_type'
+				]
+			],
+			[
+				'id'       => 'public',
+				'title'    => 'عمومی',
+				'callback' => [ $this->cpt_callbacks, 'checkbox_field' ],
+				'page'     => 'peach-core-custom-post-type-submenu',
+				'section'  => 'peach_cpt_index',
+				'args'     => [
+					'option_name' => 'peach_core_plugin_cpt',
+					'label_for'   => 'public',
+					'class'       => 'ui-toggle',
+					'array'       => 'post_type'
+				]
+			],
+			[
+				'id'       => 'has_archive',
+				'title'    => 'دارای آرشیو',
+				'callback' => [ $this->cpt_callbacks, 'checkbox_field' ],
+				'page'     => 'peach-core-custom-post-type-submenu',
+				'section'  => 'peach_cpt_index',
+				'args'     => [
+					'option_name' => 'peach_core_plugin_cpt',
+					'label_for'   => 'has_archive',
+					'class'       => 'ui-toggle',
+					'array'       => 'post_type'
+				]
+			]
+		];
+
+		$this->settings->set_fields( $args );
+	}
+
+	// set custom fields input fields
 
 	/**
 	 * Define submenu page
@@ -59,59 +170,11 @@ class CustomPostTypeController extends BaseController {
 		];
 	}
 
-	/**
-	 * Register custom fields
-	 */
-
-	// set custom fields settings
-	public function set_settings() {
-		$args[] = [
-			'option_group' => 'peach_core_plugin_cpt_settings',
-			'option_name'  => 'peach_core_plugin_cpt',
-			'callback'     => [ $this->cpt_callbacks, 'cpt_sanitize' ],
-		];
-
-		$this->settings->set_settings( $args );
-	}
-
-	// set custom fields sections
-	public function set_sections() {
-		$args = [
-			[
-				'id'       => 'peach_cpt_index',
-				'title'    => 'نوع پست اختصاصی',
-				'callback' => [ $this->cpt_callbacks, 'cpt_section_manager' ],
-				'page'     => 'peach-core-custom-post-type-submenu' // based on menu/submenu slug
-			]
-		];
-
-		$this->settings->set_sections( $args );
-	}
-
-	// set custom fields input fields
-	public function set_fields() {
-
-		// post type id, singular name, plural name, public, has_archive
-		$fields = [ 'post_type' => [ 'نوع پست', 'text_field' ], 'name' => [ 'نام', 'text_field' ], 'singular_name' => [ 'نام مفرد', 'text_field' ], 'public' => [ 'عمومی', 'checkbox_field' ], 'has_archive' => [ 'دارای آرشیو', 'checkbox_field' ] ];
-		$args   = [];
-		foreach ( $fields as $key => $value ) {
-			$args[] = [
-				'id'       => $key,
-				'title'    => $value[0],
-				'callback' => [ $this->cpt_callbacks, $value[1] ],
-				'page'     => 'peach-core-custom-post-type-submenu',
-				'section'  => 'peach_cpt_index',
-				'args'     => [ 'option_name' => 'peach_core_plugin_cpt', 'label_for' => $key, 'class' => $value[1] == 'checkbox_field' ? 'ui-toggle' : '', 'placeholder' => $value[0] ]
-			];
-		}
-
-		$this->settings->set_fields( $args );
-	}
-
 	public function store_custom_post_type() {
-		$options = get_option('peach_core_plugin_cpt') ?: [];
 
-		foreach($options as $option) {
+		$options = get_option( 'peach_core_plugin_cpt' ) ?: [];
+
+		foreach ( $options as $option ) {
 			$this->custom_post_types[] = [
 				'post_type'             => $option['post_type'],
 				'name'                  => $option['name'],
@@ -143,17 +206,17 @@ class CustomPostTypeController extends BaseController {
 				'filter_items_list'     => 'Filter' . $option['name'] . ' List',
 				'label'                 => $option['singular_name'],
 				'description'           => $option['name'] . 'Custom Post Type',
-				'supports'              => [ 'title', 'editor', 'thumbnail'],
-				'taxonomies'            => ['category', 'post_tag' ],
+				'supports'              => [ 'title', 'editor', 'thumbnail' ],
+				'taxonomies'            => [ 'category', 'post_tag' ],
 				'hierarchical'          => false,
-				'public'                => $option['public'],
+				'public'                => isset( $option['public'] ) || false,
 				'show_ui'               => true,
 				'show_in_menu'          => true,
 				'menu_position'         => 5,
 				'show_in_admin_bar'     => true,
 				'show_in_nav_menus'     => true,
 				'can_export'            => true,
-				'has_archive'           => $option['has_archive'],
+				'has_archive'           => isset( $option['has_archive'] ) || false,
 				'exclude_from_search'   => false,
 				'publicly_queryable'    => true,
 				'capability_type'       => 'post'
