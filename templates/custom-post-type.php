@@ -33,7 +33,18 @@
                         <td><?= $option['singular_name'] ?></td>
                         <td><?= $public ?></td>
                         <td><?= $has_archive ?></td>
-                        <td class="text-center"><a href="#">ویرایش</a> - <a href="#">حذف</a></td>
+                        <td class="text-center">
+                            <form action="options.php" method="post" class=" inline-block">
+                                <input type="hidden" name="remove" value="<?= $option['post_type'] ?>">
+								<?php
+								settings_fields( 'peach_core_plugin_cpt_settings' );
+								submit_button( 'پاک کردن', 'delete small', 'submit', false, ['onclick'=> 'return confirm("از پاک کردن داده مورد نظر اطمینان دارید؟ تمامی اطلاعات از بین خواهند رفت.");'] );
+								?>
+                            </form>
+                            -
+                            <a href="#">ویرایش</a>
+
+                        </td>
                     </tr>
 				<?php endforeach; ?>
                 </tbody>

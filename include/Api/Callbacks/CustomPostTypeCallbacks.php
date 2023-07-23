@@ -10,13 +10,21 @@ class CustomPostTypeCallbacks {
 	public function cpt_sanitize( $input ) {
 		$output = get_option( 'peach_core_plugin_cpt' ) ?: [];
 
+		// delete record
+		if ( isset( $_POST['remove'] ) ) {
+			unset( $output[ $_POST['remove'] ] );
+
+			return $output;
+		}
+
+		// if output was an empty array
 		if ( empty( $output ) ) {
 			$output[ $input['post_type'] ] = $input;
 
 			return $output;
 		}
 
-
+		// if there was the post type update it, otherwise create the new one
 		foreach ( $output as $key => $value ) {
 			if ( $input['post_type'] === $key ) {
 				$output[ $key ] = $input;
