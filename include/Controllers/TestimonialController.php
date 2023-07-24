@@ -29,6 +29,11 @@ class TestimonialController extends BaseController {
 		$this->set_short_code_page();
 
 		add_shortcode( 'testimonial-form', [ $this, 'testimonial_form' ] );
+
+		// handle ajax request to admin-ajax.php
+		add_action( 'wp_ajax_submit_testimonial', [ $this, 'submit_testimonial' ] );
+		// gives the ability to users are not authenticated
+		add_action( 'wp_ajax_nopriv_submit_testimonial', [ $this, 'submit_testimonial' ] );
 	}
 
 	public function testimonial_custom_post_type() {
@@ -134,7 +139,7 @@ class TestimonialController extends BaseController {
 
 		$data = [
 			'name'     => sanitize_text_field( $_POST['peach_core_testimonial_author'] ),
-			'email'    => sanitize_text_field( $_POST['peach_core_testimonial_email'] ),
+			'email'    => sanitize_email( $_POST['peach_core_testimonial_email'] ),
 			'approved' => isset( $_POST['peach_core_testimonial_approved'] ) ? 1 : 0,
 			'featured' => isset( $_POST['peach_core_testimonial_featured'] ) ? 1 : 0,
 		];
@@ -216,5 +221,47 @@ class TestimonialController extends BaseController {
 		echo "<script src=\"$this->plugin_url/assets/form.js\"></script>";
 
 		return ob_get_clean();
+	}
+
+	public function submit_testimonial() {
+		$name    = sanitize_text_field( $_POST['name'] );
+		$email   = sanitize_email( $_POST['email'] );
+		$message = sanitize_textarea_field( $_POST['message'] );
+
+		$data = [
+			'name'     => $name,
+			'email'    => $email,
+			'approved' => 0,
+			'featured' => 0,
+		];
+
+		$args = [
+			'post_title'   => 'فرم گواهی' . $name,
+			'post_content' => $message,
+			'post_author'  => 1,
+			'post_status'  => 'publish',
+			'post_type'     => 'testimonial',
+			'meta_input'   => [
+				'_peach_core_testimonial_key' => $data
+			]
+		];
+
+		$post_ID = wp_insert_post( $args );
+
+		if ( $post_ID ) {
+			wp_send_json( [
+				'status' => 'success',
+				'ID'     => $post_ID
+			] );
+
+			wp_die();
+		}
+
+		wp_send_json( [
+			'status' => 'error',
+		] );
+
+		// remember die at the end of every wp ajax request
+		wp_die();
 	}
 }
