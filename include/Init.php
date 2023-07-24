@@ -26,6 +26,7 @@ final class Init {
 			Pages\Dashboard::class,
 			Base\Enqueue::class,
 			Base\SettingsLink::class,
+
 			Controllers\CustomPostTypeController::class,
 			Controllers\CustomTaxonomyController::class,
 			Controllers\WidgetController::class,

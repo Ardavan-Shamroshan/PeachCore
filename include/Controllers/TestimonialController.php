@@ -2,41 +2,27 @@
 
 namespace Inc\Controllers;
 
-use Inc\Api\Callbacks\AdminCallbacks;
-use Inc\Api\Settings;
-
 class TestimonialController extends BaseController {
-	public Settings $settings;
-	public AdminCallbacks $callbacks;
-
-	public array $subpages = [];
-
 	public function register() {
 		if ( ! $this->activated( 'testimonial_manager' ) ) {
 			return;
 		}
 
-		$this->settings  = new Settings();
-		$this->callbacks = new AdminCallbacks();
-
-		// menu, submenu pages
-		$this->set_subpages();
-		$this->settings
-			->add_subpages( $this->subpages )
-			->register();
+		add_action( 'init', array( $this, 'testimonial_custom_post_type' ) );
 	}
 
-	public function set_subpages() {
-		$this->subpages = [
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'مدیریت گواهی نامه',
-				'menu_title'  => 'مدیریت گواهی نامه',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-testimonial-manager-submenu',
-				'callback'    => [ $this->callbacks, 'testimonial_manager' ]
-			]
-		];
+	public function testimonial_custom_post_type() {
+		register_post_type( 'testimonial', [
+			'labels'              => [
+				'name'          => 'مدیریت گواهی ها',
+				'singular_name' => 'مدیریت گواهی'
+			],
+			'public'              => true,
+			'has_archive'         => false,
+			'menu-icon'           => 'dashicons-testimonial',
+			'exclude_form_search' => true,
+			'publicly_queryable'  => false,
+			'supports'            => [ 'title', 'editor' ]
+		] );
 	}
-
 }

@@ -20,7 +20,7 @@ class AdminCallbacks extends BaseController {
 		return require_once $this->plugin_path . 'templates/taxonomy-type.php';
 	}
 
-	public function custom_widget_type() {
-		return require_once $this->plugin_path . 'templates/widget-type.php';
+	public function testimonial_manager() {
+		return require_once $this->plugin_path . 'templates/testimonial-manager.php';
 	}
 }
