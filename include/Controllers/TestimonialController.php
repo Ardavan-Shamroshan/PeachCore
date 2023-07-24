@@ -2,24 +2,31 @@
 
 namespace Inc\Controllers;
 
+use Inc\Api\Callbacks\TestimonialCallbacks;
+use Inc\Api\Settings;
+
 class TestimonialController extends BaseController {
+	public Settings $settings;
+	public TestimonialCallbacks $testimonial_callbacks;
+
 	public function register() {
 		if ( ! $this->activated( 'testimonial_manager' ) ) {
 			return;
 		}
 
+		$this->settings              = new Settings;
+		$this->testimonial_callbacks = new TestimonialCallbacks;
+
 		add_action( 'init', array( $this, 'testimonial_custom_post_type' ) );
 
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
-
 		add_action( 'save_post', [ $this, 'save_meta_box' ] );
-
 //		add_action( 'manage_{post_type}_posts_columns');
 		add_action( 'manage_testimonial_posts_columns', [ $this, 'set_custom_columns' ] );
 		add_action( 'manage_testimonial_posts_custom_column', [ $this, 'set_custom_columns_data' ], 10, 2 );
-
 		add_filter( 'manage_edit-testimonial_sortable_columns', [ $this, 'set_custom_columns_sortable' ] );
 
+		$this->set_short_code_page();
 	}
 
 	public function testimonial_custom_post_type() {
@@ -177,5 +184,20 @@ class TestimonialController extends BaseController {
 		$columns['featured'] = 'featured';
 
 		return $columns;
+	}
+
+	public function set_short_code_page() {
+		$subpage = [
+			[
+				'parent_slug' => 'edit.php?post_type=testimonial',
+				'page_title'  => 'کد های کوتاه',
+				'menu_title'  => 'کد های کوتاه',
+				'capability'  => 'manage_options',
+				'menu_slug'   => 'peach_core_testimonial_shortcode',
+				'callback'    => [ $this->testimonial_callbacks, 'shortcode_page' ]
+			]
+		];
+
+		$this->settings->add_subpages( $subpage )->register();
 	}
 }
