@@ -1,0 +1,29 @@
+#peach-core-testimonial-form .field-container {
+    position: relative;
+    margin-bottom: 20px
+}
+
+#peach-core-testimonial-form .field-msg {
+    display: none;
+    position: absolute;
+    left: 2px;
+    bottom: -14px;
+    font-size: 9px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em
+}
+
+#peach-core-testimonial-form .field-msg.show {
+    display: block
+}
+
+#peach-core-testimonial-form .error {
+    color: #901313
+}
+
+#peach-core-testimonial-form .success {
+    color: #2f812f
+}
+
+/*# sourceMappingURL=form.css.map */

@@ -27,6 +27,8 @@ class TestimonialController extends BaseController {
 		add_filter( 'manage_edit-testimonial_sortable_columns', [ $this, 'set_custom_columns_sortable' ] );
 
 		$this->set_short_code_page();
+
+		add_shortcode( 'testimonial-form', [ $this, 'testimonial_form' ] );
 	}
 
 	public function testimonial_custom_post_type() {
@@ -199,5 +201,20 @@ class TestimonialController extends BaseController {
 		];
 
 		$this->settings->add_subpages( $subpage )->register();
+	}
+
+	public function testimonial_form() {
+		// stop execute this code while ob gets clean
+		ob_start();
+
+		// load css file only when form loaded
+		echo "<link rel=\"stylesheet\" href=\"$this->plugin_url/assets/form.css\" type=\"text/css\" media=\"all\" />";
+
+		require_once $this->plugin_path . 'templates/shortcodes/contact-form.php';
+
+		// load js file only when form loaded
+		echo "<script src=\"$this->plugin_url/assets/form.js\"></script>";
+
+		return ob_get_clean();
 	}
 }
