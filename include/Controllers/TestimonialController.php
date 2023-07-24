@@ -224,6 +224,13 @@ class TestimonialController extends BaseController {
 	}
 
 	public function submit_testimonial() {
+		// if not doing ajax
+        // or
+		// return this nonce attr is present in POST request
+		if ( ! DOING_AJAX  || ! check_ajax_referer( 'testimonial-nonce', 'nonce' ) ) {
+			return $this->response( 'error' );
+		}
+
 		$name    = sanitize_text_field( $_POST['name'] );
 		$email   = sanitize_email( $_POST['email'] );
 		$message = sanitize_textarea_field( $_POST['message'] );
@@ -240,7 +247,7 @@ class TestimonialController extends BaseController {
 			'post_content' => $message,
 			'post_author'  => 1,
 			'post_status'  => 'publish',
-			'post_type'     => 'testimonial',
+			'post_type'    => 'testimonial',
 			'meta_input'   => [
 				'_peach_core_testimonial_key' => $data
 			]
@@ -249,16 +256,15 @@ class TestimonialController extends BaseController {
 		$post_ID = wp_insert_post( $args );
 
 		if ( $post_ID ) {
-			wp_send_json( [
-				'status' => 'success',
-				'ID'     => $post_ID
-			] );
-
-			wp_die();
+			return $this->response( 'success' )
 		}
 
+		return $this->response( 'error' );
+	}
+
+	public function response( $status ) {
 		wp_send_json( [
-			'status' => 'error',
+			'status' => $status,
 		] );
 
 		// remember die at the end of every wp ajax request
