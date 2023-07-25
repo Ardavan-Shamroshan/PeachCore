@@ -2,40 +2,56 @@
 
 namespace Inc\Controllers;
 
-use Inc\Api\Callbacks\AdminCallbacks;
-use Inc\Api\Settings;
-
 class TemplateController extends BaseController {
-	public Settings $settings;
-	public AdminCallbacks $callbacks;
-
-	public array $subpages = [];
+	public $templates;
 
 	public function register() {
 		if ( ! $this->activated( 'custom_template' ) ) {
 			return;
 		}
 
-		$this->settings  = new Settings();
-		$this->callbacks = new AdminCallbacks();
+		$this->templates = [
+			'page-template/two-columns-tpl.php' => 'Two Columns Layout',
+		];
 
-		// menu, submenu pages
-		$this->set_subpages();
-		$this->settings
-			->add_subpages( $this->subpages )
-			->register();
+		// register custom template in wp templates array
+		add_filter( 'theme_page_templates', [ $this, 'custom_template' ] );
+		// if a post or page has that template, use that not the default
+		add_filter( 'template_include', [ $this, 'load_template' ] );
 	}
 
-	public function set_subpages() {
-		$this->subpages = [
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'مدیریت قالب',
-				'menu_title'  => 'مدیریت قالب',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-templates-manager-submenu',
-				'callback'    => [ $this->callbacks, 'custom_template' ]
-			]
-		];
+
+	public function custom_template( $templates ) {
+		// full array of wp templates in $templates
+
+		// add our custom templates to wp templates
+		return array_merge( $templates, $this->templates );
+	}
+
+	public function load_template( $template ) {
+		// $template = get the chosen template of post or page that is going to use
+
+		// the page
+		global $post;
+		if ( ! $post ) {
+			return $template;
+		}
+
+		// the name of the template
+		$template_name = get_post_meta( $post->ID, '_wp_page_template', true );
+
+		if ( ! isset( $this->templates[ $template_name ] ) ) {
+			return $template;
+		}
+
+		$file = $this->plugin_path . $template_name;
+
+
+		if ( file_exists( $file ) ) {
+			return $file;
+		}
+
+
+		return $template;
 	}
 }
