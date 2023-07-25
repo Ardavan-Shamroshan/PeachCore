@@ -12,7 +12,7 @@ class TemplateController extends BaseController {
 	public array $subpages = [];
 
 	public function register() {
-		if ( ! $this->activated( 'templates_manager' ) ) {
+		if ( ! $this->activated( 'custom_template' ) ) {
 			return;
 		}
 
@@ -34,7 +34,7 @@ class TemplateController extends BaseController {
 				'menu_title'  => 'مدیریت قالب',
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'peach-core-templates-manager-submenu',
-				'callback'    => [ $this->callbacks, 'templates_manager' ]
+				'callback'    => [ $this->callbacks, 'custom_template' ]
 			]
 		];
 	}

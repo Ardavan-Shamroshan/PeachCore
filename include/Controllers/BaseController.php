@@ -20,7 +20,7 @@ class BaseController {
 			'media_widget'        => __( 'رسانه ابزارک ها' ),
 			'gallery_manager'     => __( 'مدیریت تصاویر' ),
 			'testimonial_manager' => __( 'مدیریت گواهی نامه' ),
-			'templates_manager'   => __( 'مدیریت قالب' ),
+			'custom_template'   => __( 'فعال سازی قالب اختصاصی' ),
 			'login_manager'       => __( 'مدیریت ورود' ),
 			'membership_manager'  => __( 'مدیریت اشتراک' ),
 			'chat_manager'        => __( 'مدیریت گفتوگو' ),
