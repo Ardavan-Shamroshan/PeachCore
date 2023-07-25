@@ -48,7 +48,8 @@ class TestimonialController extends BaseController {
 			'menu-icon'           => 'dashicons-testimonial',
 			'exclude_form_search' => true,
 			'publicly_queryable'  => false,
-			'supports'            => [ 'title', 'editor' ]
+			'supports'            => [ 'title', 'editor' ],
+            'show_in_rest' => true // update and make post type compatible with the latest version of wp and gutenberg
 		] );
 	}
 
@@ -61,8 +62,6 @@ class TestimonialController extends BaseController {
 			'side',
 			'default'
 		);
-
-		//
 	}
 
 	public function render_features_box( $post ) {
