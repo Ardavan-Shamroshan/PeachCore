@@ -2,17 +2,13 @@
 
 namespace Inc\Controllers;
 
-use Inc\Api\Callbacks\AdminCallbacks;
 use Inc\Api\Callbacks\CustomPostTypeCallbacks;
 use Inc\Api\Settings;
 
 class CustomPostTypeController extends BaseController {
 	public Settings $settings;
-	public AdminCallbacks $callbacks;
 	public CustomPostTypeCallbacks $cpt_callbacks;
-
 	public array $subpages = [];
-
 	public array $custom_post_types = [];
 
 	public function register() {
@@ -21,7 +17,6 @@ class CustomPostTypeController extends BaseController {
 		}
 
 		$this->settings      = new Settings();
-		$this->callbacks     = new AdminCallbacks();
 		$this->cpt_callbacks = new CustomPostTypeCallbacks();
 
 		// menu, submenu pages
@@ -31,7 +26,6 @@ class CustomPostTypeController extends BaseController {
 		$this->set_settings();
 		$this->set_sections();
 		$this->set_fields();
-
 
 		$this->settings
 			->add_subpages( $this->subpages )
@@ -164,10 +158,15 @@ class CustomPostTypeController extends BaseController {
 				'menu_title'  => 'پست اختصاصی',
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'peach-core-custom-post-type-submenu',
-				'callback'    => [ $this->callbacks, 'custom_post_type' ]
+				'callback'    => [ $this, 'custom_post_type' ]
 			]
 		];
 	}
+
+	public function custom_post_type() {
+		return require_once $this->plugin_path . 'templates/custom-post-type.php';
+	}
+
 
 	public function store_custom_post_type() {
 

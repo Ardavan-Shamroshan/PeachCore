@@ -8,7 +8,6 @@ use Inc\Api\Settings;
 
 class CustomTaxonomyController extends BaseController {
 	public Settings $settings;
-	public AdminCallbacks $callbacks;
 	public CustomTaxonomyCallbacks $taxonomy_callbacks;
 
 	public array $subpages = [];
@@ -20,7 +19,6 @@ class CustomTaxonomyController extends BaseController {
 		}
 
 		$this->settings           = new Settings();
-		$this->callbacks          = new AdminCallbacks();
 		$this->taxonomy_callbacks = new CustomTaxonomyCallbacks();
 
 		// menu, submenu pages
@@ -49,9 +47,13 @@ class CustomTaxonomyController extends BaseController {
 				'menu_title'  => 'دسته بندی اختصاصی',
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'peach-core-custom-taxonomy-submenu',
-				'callback'    => [ $this->callbacks, 'custom_taxonomy_type' ]
+				'callback'    => [ $this, 'custom_taxonomy_type' ]
 			]
 		];
+	}
+
+	public function custom_taxonomy_type() {
+		return require_once $this->plugin_path . 'templates/taxonomy-type.php';
 	}
 
 	public function set_settings() {

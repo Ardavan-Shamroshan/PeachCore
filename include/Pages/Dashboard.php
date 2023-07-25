@@ -2,27 +2,21 @@
 
 namespace Inc\Pages;
 
-use Inc\Api\Callbacks\AdminCallbacks;
 use Inc\Api\Callbacks\ManagerCallbacks;
 use Inc\Api\Settings;
 use Inc\Controllers\BaseController;
 
 class Dashboard extends BaseController {
 	public Settings $settings;
-	public AdminCallbacks $callbacks;
 	public ManagerCallbacks $callbacks_manager;
 	public array $pages;
 
-//	public array $subpages;
-
 	public function register() {
 		$this->settings          = new Settings();
-		$this->callbacks         = new AdminCallbacks();
 		$this->callbacks_manager = new ManagerCallbacks();
 
 		// menu, submenu pages
 		$this->set_pages();
-//		$this->set_subpages();
 
 		// custom fields
 		$this->set_settings();
@@ -32,7 +26,6 @@ class Dashboard extends BaseController {
 		$this->settings
 			->add_pages( $this->pages )
 			->with_subpage( 'پیشخوان هلو' )
-//			->add_subpages( $this->subpages )
 			->register();
 	}
 
@@ -48,11 +41,15 @@ class Dashboard extends BaseController {
 				'menu_title' => 'هسته هلو',
 				'capability' => 'manage_options',
 				'menu_slug'  => 'peach-core',
-				'callback'   => [ $this->callbacks, 'admin_dashboard' ],
+				'callback'   => [ $this, 'admin_dashboard' ],
 				'icon_url'   => 'dashicons-store',
 				'position'   => 25
 			]
 		];
+	}
+
+	public function admin_dashboard() {
+		return require_once $this->plugin_path . 'templates/admin.php';
 	}
 
 	/**

@@ -18,12 +18,9 @@ class BaseController {
 			'cpt_manager'         => __( 'مدیریت نوع پست های اختصاصی' ),
 			'taxonomy_manager'    => __( 'مدیریت دسته بندی' ),
 			'media_widget'        => __( 'رسانه ابزارک ها' ),
-			'gallery_manager'     => __( 'مدیریت تصاویر' ),
 			'testimonial_manager' => __( 'مدیریت گواهی نامه' ),
 			'custom_template'   => __( 'فعال سازی قالب اختصاصی' ),
 			'login_manager'       => __( 'ماژول ورود اختصاصی' ),
-			'membership_manager'  => __( 'مدیریت اشتراک' ),
-			'chat_manager'        => __( 'مدیریت گفتوگو' ),
 		];
 	}
 

@@ -30,12 +30,9 @@ final class Init {
 			Controllers\CustomPostTypeController::class,
 			Controllers\CustomTaxonomyController::class,
 			Controllers\WidgetController::class,
-			Controllers\GalleryController::class,
 			Controllers\TestimonialController::class,
 			Controllers\TemplateController::class,
 			Controllers\AuthController::class,
-			Controllers\MembershipController::class,
-			Controllers\ChatController::class,
 		];
 	}
 
