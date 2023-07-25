@@ -11,11 +11,13 @@
         <label for="password">کلمه عبور</label>
         <input id="password" type="password" name="password">
         <input class="submit_button" type="submit" value="ورود" name="submit">
-        <p class="status"></p>
+        <p class="status" data-message="status"></p>
 
         <p class="actions">
             <a href="<?php echo wp_lostpassword_url(); ?>">کلمه عبور خود را فراموش کرده اید؟</a> - <a href="<?php echo wp_registration_url(); ?>">ثبت نام</a>
         </p>
+
+        <input type="hidden" name="action" value="peach_core_login">
 
 		<?php wp_nonce_field( 'ajax-login-nonce', 'peach_core_auth' ); ?>
     </div>

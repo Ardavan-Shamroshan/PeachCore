@@ -29,7 +29,8 @@
     position: relative;
     background: #fff;
     padding: 10px;
-    border-radius: 4px
+    border-radius: 4px;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.35);
 }
 
 #peach-core-auth-form .auth-container.show {
@@ -72,5 +73,20 @@
     text-transform: uppercase;
     display: inline-block;
     margin: 0 4px
+}
+
+#peach-core-auth-form .status {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+#peach-core-auth-form .error {
+    color: rgba(144, 19, 19)!important;
+}
+
+#peach-core-auth-form .success {
+    color: rgba(46, 129, 47) !important;
 }
 
