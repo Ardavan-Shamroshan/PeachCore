@@ -29,6 +29,7 @@ class TestimonialController extends BaseController {
 		$this->set_short_code_page();
 
 		add_shortcode( 'testimonial-form', [ $this, 'testimonial_form' ] );
+		add_shortcode( 'testimonial-slideshow', [ $this, 'testimonial_slideshow' ] );
 
 		// handle ajax request to admin-ajax.php
 		add_action( 'wp_ajax_submit_testimonial', [ $this, 'submit_testimonial' ] );
@@ -223,6 +224,21 @@ class TestimonialController extends BaseController {
 		return ob_get_clean();
 	}
 
+    public function testimonial_slideshow() {
+		// stop execute this code while ob gets clean
+		ob_start();
+
+		// load css file only when form loaded
+		echo "<link rel=\"stylesheet\" href=\"$this->plugin_url/assets/slider.css\" type=\"text/css\" media=\"all\" />";
+
+		require_once $this->plugin_path . 'templates/shortcodes/slider.php';
+
+		// load js file only when slider loaded
+		echo "<script src=\"$this->plugin_url/assets/slider.js\"></script>";
+
+		return ob_get_clean();
+	}
+
 	public function submit_testimonial() {
 		// if not doing ajax
         // or
@@ -243,7 +259,7 @@ class TestimonialController extends BaseController {
 		];
 
 		$args = [
-			'post_title'   => 'فرم گواهی' . $name,
+			'post_title'   => ' فرم گواهی ' . $name,
 			'post_content' => $message,
 			'post_author'  => 1,
 			'post_status'  => 'publish',
@@ -256,7 +272,7 @@ class TestimonialController extends BaseController {
 		$post_ID = wp_insert_post( $args );
 
 		if ( $post_ID ) {
-			return $this->response( 'success' )
+			return $this->response( 'success' );
 		}
 
 		return $this->response( 'error' );
