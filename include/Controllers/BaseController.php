@@ -21,7 +21,7 @@ class BaseController {
 			'gallery_manager'     => __( 'مدیریت تصاویر' ),
 			'testimonial_manager' => __( 'مدیریت گواهی نامه' ),
 			'custom_template'   => __( 'فعال سازی قالب اختصاصی' ),
-			'login_manager'       => __( 'مدیریت ورود' ),
+			'login_manager'       => __( 'ماژول ورود اختصاصی' ),
 			'membership_manager'  => __( 'مدیریت اشتراک' ),
 			'chat_manager'        => __( 'مدیریت گفتوگو' ),
 		];

@@ -2,40 +2,37 @@
 
 namespace Inc\Controllers;
 
-use Inc\Api\Callbacks\AdminCallbacks;
-use Inc\Api\Settings;
-
 class AuthController extends BaseController {
-	public Settings $settings;
-	public AdminCallbacks $callbacks;
-
-	public array $subpages = [];
-
 	public function register() {
 		if ( ! $this->activated( 'login_manager' ) ) {
 			return;
 		}
 
-		$this->settings  = new Settings();
-		$this->callbacks = new AdminCallbacks();
-
-		// menu, submenu pages
-		$this->set_subpages();
-		$this->settings
-			->add_subpages( $this->subpages )
-			->register();
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ] );
+		add_action( 'wp_head', [ $this, 'add_auth_template' ] );
 	}
 
-	public function set_subpages() {
-		$this->subpages = [
-			[
-				'parent_slug' => 'peach-core',
-				'page_title'  => 'مدیریت ورود',
-				'menu_title'  => 'مدیریت ورود',
-				'capability'  => 'manage_options',
-				'menu_slug'   => 'peach-core-login-manager-submenu',
-				'callback'    => [ $this->callbacks, 'login_manager' ]
-			]
-		];
+	public function add_auth_template() {
+		// if user logged is
+		if ( is_user_logged_in() ) {
+			return;
+		}
+
+		$file = $this->plugin_path . 'templates/auth.php';
+
+		if ( file_exists( $file ) ) {
+			load_template( $file, true );
+		}
+
+
+	}
+
+	public function enqueue() {
+		// if user logged is
+		if ( is_user_logged_in() ) {
+			return;
+		}
+		wp_enqueue_style( 'authStyle', $this->plugin_url . 'assets/auth.css', [], null );
+		wp_enqueue_script( 'authScript', $this->plugin_url . 'assets/auth.js', [], null );
 	}
 }

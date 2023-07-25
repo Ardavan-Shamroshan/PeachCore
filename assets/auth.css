@@ -1,0 +1,76 @@
+#peach-core-auth-form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    overflow: hidden
+}
+
+#peach-core-auth-form .auth-btn {
+    margin: 20px;
+    top: 0;
+    right: 0;
+    position: absolute
+}
+
+#peach-core-auth-form .auth-btn.hide {
+    display: none
+}
+
+#peach-core-auth-form .auth-container {
+    -webkit-transition: -webkit-transform 200ms ease;
+    transition: -webkit-transform 200ms ease;
+    transition: transform 200ms ease;
+    transition: transform 200ms ease, -webkit-transform 200ms ease;
+    -webkit-transform: translateX(300px);
+    transform: translateX(300px);
+    width: 220px;
+    margin: 20px;
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px
+}
+
+#peach-core-auth-form .auth-container.show {
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
+}
+
+#peach-core-auth-form h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-top: 0;
+    font-size: 16px
+}
+
+#peach-core-auth-form .close {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 16px
+}
+
+#peach-core-auth-form label {
+    font-size: 10px;
+    text-transform: uppercase
+}
+
+#peach-core-auth-form input[type="text"], #peach-core-auth-form input[type="password"] {
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 12px
+}
+
+#peach-core-auth-form .actions {
+    text-align: center;
+    margin-bottom: 0
+}
+
+#peach-core-auth-form .actions a {
+    font-size: 10px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 0 4px
+}
+
