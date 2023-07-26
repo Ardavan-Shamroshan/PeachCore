@@ -24,8 +24,6 @@ class AuthController extends BaseController {
 		if ( file_exists( $file ) ) {
 			load_template( $file, true );
 		}
-
-
 	}
 
 	public function enqueue() {
